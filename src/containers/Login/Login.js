@@ -1,9 +1,13 @@
 import React from 'react';
-import {Button, Container, Form} from 'react-bootstrap'
-import * as ROUTES from "../constants/routes";
+import {Button, Container, Form, InputGroup} from 'react-bootstrap'
+import * as ROUTES from "../../constants/routes";
 import {Link, Redirect} from "react-router-dom";
-import axios from '../axios';
+import axios from '../../axios';
 
+import './Login.css'
+import logo from '../../images/nba.png' // relative path to image
+
+import {FaAt, FaKey} from 'react-icons/fa';
 
 
 const INITIAL_STATE = {
@@ -25,6 +29,8 @@ class Login extends React.Component {
             password: this.state.password,
             returnSecureToken: true
         }
+        event.preventDefault();
+
         axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAojn4pWJv-oo2I24rmVYd8cgO8VxcO9rQ', authData)
             .then(response => {
                 console.log(response)
@@ -64,29 +70,49 @@ class Login extends React.Component {
             email === '';
 
         return (
-            <Container>
+            <Container className='loginContainer'>
                 {redirect}
-                <h1>
-                    Login
-                </h1>
-                <Form onSubmit={this.handleSubmit}>
-                    <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" name="email" value={email} placeholder="Introduce un correo electrónico" onChange={this.handleChange} />
-                    </Form.Group>
+                <div className="d-flex justify-content-center h-100 pt-100">
+                    <div className="user_card">
+                        <div className="d-flex justify-content-center">
+                            <div className="brand_logo_container">
+                                <img
+                                    src={logo}
+                                    className="brand_logo" alt="Logo" />
+                            </div>
+                        </div>
+                        <div className='d-flex justify-content-center form_container'>
+                            <Form onSubmit={this.handleSubmit}>
+                                <Form.Group controlId="formBasicEmail" style={{padding: 20}}>
+                                    <Form.Label className='inputLabels'>Email</Form.Label>
+                                    <InputGroup>
+                                        <InputGroup.Prepend className='inputPrepend'>
+                                            <FaAt className='fa' size={30}/>
+                                        </InputGroup.Prepend>
+                                        <Form.Control type="email" name="email" value={email} placeholder="Introduce un correo electrónico" onChange={this.handleChange} />
+                                    </InputGroup>
+                                </Form.Group>
 
-                    <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Contraseña</Form.Label>
-                        <Form.Control type="password" name="password" value={password} placeholder="Introduce su contraseña" />
-                    </Form.Group>
-                    <Button variant="primary" type="submit" disabled={isInvalid}>
-                        Iniciar Sesión
-                    </Button>
-                    <p>
-                        No tienes una cuenta? <Link to={ROUTES.SIGN_UP}>Registrate</Link>
-                    </p>
-                    {error && <p>{error.message}</p>}
-                </Form>
+                                <Form.Group controlId="formBasicPassword" style={{padding: 20}}>
+                                    <Form.Label className='inputLabels'>Contraseña</Form.Label>
+                                    <InputGroup>
+                                        <InputGroup.Prepend className='inputPrepend'>
+                                            <FaKey className='fa' size={30}/>
+                                        </InputGroup.Prepend>
+                                        <Form.Control type="password" name="password" value={password} placeholder="Introduce su contraseña" onChange={this.handleChange}/>
+                                    </InputGroup>
+                                </Form.Group>
+                                <Button variant="danger" type="submit" disabled={isInvalid}>
+                                    Iniciar Sesión
+                                </Button>
+                                <p style={{fontWeight: "bold", padding: 20}}>
+                                    No tienes una cuenta? <Link to={ROUTES.SIGN_UP} style={{color: '#ff3d3c'}}>Registrate</Link>
+                                </p>
+                                {error && <p>{error.message}</p>}
+                            </Form>
+                        </div>
+                    </div>
+                </div>
             </Container>
         );
     }

@@ -1,12 +1,13 @@
 import React from 'react';
 import {Button, Container, Form, InputGroup} from 'react-bootstrap'
-import * as ROUTES from "../constants/routes";
-import axios from '../axios';
+import * as ROUTES from "../../constants/routes";
+import axios from '../../axios';
 import {Redirect} from "react-router-dom";
-import logo from "../images/nba.png";
+import logo from "../../images/nba.png";
 
 import {FaAt, FaKey, FaUser} from 'react-icons/fa';
 
+import './SignUp.css'
 
 
 const INITIAL_STATE = {
@@ -30,6 +31,7 @@ class SignUp extends React.Component {
             password: this.state.password,
             returnSecureToken: true
         };
+        event.preventDefault();
         console.log(authData);
         axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAojn4pWJv-oo2I24rmVYd8cgO8VxcO9rQ', authData)
             .then(response => {
@@ -71,10 +73,10 @@ class SignUp extends React.Component {
             username === '';
 
         return (
-            <Container>
+            <Container className='signUpContainer'>
                 {redirect}
                 <div className="d-flex justify-content-center h-100 pt-100">
-                    <div className="user_card">
+                    <div className="signup_user_card">
                         <div className="d-flex justify-content-center">
                             <div className="brand_logo_container">
                                 <img
@@ -84,7 +86,7 @@ class SignUp extends React.Component {
                         </div>
                         <div className='d-flex justify-content-center form_container'>
                             <Form onSubmit={this.handleSubmit}>
-                                <Form.Group controlId="formBasicUserName">
+                                <Form.Group controlId="formBasicUserName" style={{padding: 10}}>
                                     <Form.Label className='inputLabels'>Nombre Usuario</Form.Label>
                                     <InputGroup>
                                         <InputGroup.Prepend className='inputPrepend'>
@@ -93,7 +95,7 @@ class SignUp extends React.Component {
                                         <Form.Control type="text" name="username" value={username} placeholder="Introduce nombre de usuario" onChange={this.handleChange} />
                                     </InputGroup>
                                 </Form.Group>
-                                <Form.Group controlId="formBasicEmail">
+                                <Form.Group controlId="formBasicEmail" style={{padding: 10}}>
                                     <Form.Label className='inputLabels'>Email</Form.Label>
                                     <InputGroup>
                                         <InputGroup.Prepend className='inputPrepend'>
@@ -103,25 +105,25 @@ class SignUp extends React.Component {
                                     </InputGroup>
                                 </Form.Group>
 
-                                <Form.Group controlId="formBasicPassword">
+                                <Form.Group controlId="formBasicPassword" style={{padding: 10}}>
                                     <Form.Label className='inputLabels'>Contraseña</Form.Label>
                                     <InputGroup>
                                         <InputGroup.Prepend className='inputPrepend'>
                                             <FaKey className='fa' size={30}/>
                                         </InputGroup.Prepend>
-                                        <Form.Control type="password" name="password" value={password} placeholder="Introduce su contraseña" />
+                                        <Form.Control type="password" name="password" value={password} placeholder="Introduce su contraseña" onChange={this.handleChange}  />
                                     </InputGroup>
                                 </Form.Group>
-                                <Form.Group controlId="formBasicPassword2">
+                                <Form.Group controlId="formBasicPassword2" style={{padding: 10}}>
                                     <Form.Label className='inputLabels'>Repita la contraseña</Form.Label>
                                     <InputGroup>
                                         <InputGroup.Prepend className='inputPrepend'>
                                             <FaKey className='fa' size={30}/>
                                         </InputGroup.Prepend>
-                                        <Form.Control type="password" name="repeatPassword" value={repeatPassword} placeholder="Repita la contraseña" />
+                                        <Form.Control type="password" name="repeatPassword" value={repeatPassword} placeholder="Repita la contraseña" onChange={this.handleChange}  />
                                     </InputGroup>
                                 </Form.Group>
-                                <Button variant="primary" type="submit" disabled={isInvalid}>
+                                <Button variant="danger" type="submit" disabled={isInvalid}>
                                     Registrarse
                                 </Button>
                                 {error && <p>{error.message}</p>}

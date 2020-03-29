@@ -1,0 +1,41 @@
+.item-row {
+    margin-top: 10px;
+}
+
+.item-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 2px;
+    border-color: black;
+}
+
+
+.item-buy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item-price {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-circle {
+    border-radius: 50%; 
+}
+
+.item-image {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.item-image-div {
+    position: relative;
+}
