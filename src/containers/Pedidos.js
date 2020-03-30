@@ -24,7 +24,7 @@ class Pedidos extends React.Component {
     }
 
     deletePedidoHandler = (id, index) => {
-        axios.delete(`/pedidos/${id}.json`).then(() => {
+        axios.delete(`/pedidos/${this.props.userId}/${id}.json`).then(() => {
             this.setState({
                 showDeletedSnackbar: true
             });
